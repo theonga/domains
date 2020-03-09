@@ -1,4 +1,4 @@
-import myapp.wsgi
+import domains.wsgi
 SCRIPT_NAME = '/home/zimbabwedomainre/domain_cl'
 
 class PassengerPathInfoFix(object):
