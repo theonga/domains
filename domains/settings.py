@@ -25,7 +25,10 @@ SECRET_KEY = '49kp_p6n#h*kfmnr)$d6y%=&a5ja-5ku7(n3%j^d^%h&-uh5e&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  'zimbabwedomainregistration.com',
+  '0.0.0.0',
+]
 
 
 # Application definition
@@ -75,8 +78,12 @@ WSGI_APPLICATION = 'domains.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'zimbabwedomainre_dbDmis76Hvp',
+        'USER': 'zimbabwedomainre_Usrduy78Bh',
+        'PASSWORD': '1VRTfhsnyGIT54S6!d4$jT!goJE',
+        'HOST': 'localhost',
+        'PORT': 5432
     }
 }
 
