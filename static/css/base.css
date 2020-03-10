@@ -1,0 +1,17 @@
+html, body{
+    font-family: 'Montserrat', sans-serif;
+}
+.feather {
+    width: 18px;
+    height: 18px;
+    stroke: blue;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    text-align: center;
+}
+.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    padding-right: 0px;
+    padding-left: 0px;
+}

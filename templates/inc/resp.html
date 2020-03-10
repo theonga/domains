@@ -1,0 +1,17 @@
+<div style="background-color: #fff" class="jumbotron jumbotron-fluid">
+    <div class="container">
+        {% if av == 'true' %}
+            <h2 class="text-center display-4" style="color: green">Domain Available</h2>
+            <p class="lead text-center">Congradulations! <span style="color: green">{{dom}}</span> is available and you can register it now for <span style="color: green">RTGS$50</span>!</p>
+            <div style="text-align:center;">
+                <a class="btn btn-primary btn-lg" href="{% url 'register' domain=dom %}" role="button">Register Domain</a>
+            </div>
+            {% else %}
+            <h2 class="text-center display-4" style="color: red">Domain Taken</h2>
+            <p class="lead text-center">Ooooow, <span style="color: red">{{dom}}</span> is already taken. Find another domain name</p>
+            <div style="text-align:center;">
+                <a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">Search Again</a>
+            </div>
+        {% endif %}
+    </div>
+</div>

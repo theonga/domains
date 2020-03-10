@@ -1,0 +1,31 @@
+<!-- templates/signup.html -->
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Contact Us{% endblock title %}
+{% block content %}
+    <div style="margin-top:6%" class="container">
+        <h2>Contact Us</h2>
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-6">
+                    {{ form.from_email|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                    {{ form.phone_number|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form.subject|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{ form.message|as_crispy_field }}
+                </div>
+            </div>
+            <button class="btn btn-success" type="submit">Send a message</button>
+        </form>
+    </div>
+{% endblock content %}

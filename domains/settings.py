@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
   'zimbabwedomainregistration.com',
   '0.0.0.0',
+  '127.0.0.1',
 ]
 
 
@@ -40,7 +41,31 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    #third-part
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'crispy_forms',
+
+    #local
+    'users.apps.UsersConfig',
+    'main.apps.MainConfig',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,6 +103,14 @@ WSGI_APPLICATION = 'domains.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+'''
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'zimbabwedomainre_dbDmis76Hvp',
         'USER': 'zimbabwedomainre_Usrduy78Bh',
@@ -86,6 +119,7 @@ DATABASES = {
         'PORT': 5432
     }
 }
+'''
 
 
 # Password validation
@@ -124,6 +158,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#Form styles boot4
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static_media")

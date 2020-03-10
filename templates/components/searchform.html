@@ -1,0 +1,11 @@
+  <form center method="POST" action="{% url 'home' %}" autocomplete="off">
+    {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-8 d-flex justify-content-center">
+                <input type="text" class="form-control" id="domain" name="domain" placeholder="Your next domain name .co.zw, .com, .co, .org " required="true">
+            </div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary">Search Domain</button>
+            </div>
+        </div>
+    </form>

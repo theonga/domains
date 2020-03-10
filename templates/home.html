@@ -1,0 +1,44 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}clouditate{% endblock title %}
+{% block content %}
+{% include 'components/searchbanner.html' %}
+<div class="container marketing">
+     <!-- Three columns of text below the carousel -->
+     <div class="row" style="padding-top: 40px">
+         <div class="col-lg-4">
+             <center>
+                 <i data-feather="search"></i>
+                 <h2 class="text-center">Find a domain name</h2>
+                 <p class="text-center">Zimbabwe domain name registry helps you find a domain name to host your business website and emails.</p>
+                 <p><a class="btn btn-secondary" href="{% url 'about' %}" role="button">More »</a></p>
+             </center>
+         </div><!-- /.col-lg-4 -->
+         <div class="col-lg-4">
+         <center>
+             <i data-feather="server"></i>
+             <h2 class="text-center">Cheap & Reliable</h2>
+             <p>Our domain names are for developers and much cheaper than other domain registries in Zimbabwe.</p>
+             <p><a class="btn btn-secondary" href="{% url 'about' %}" role="button">More »</a></p>
+         </center>
+         </div><!-- /.col-lg-4 -->
+         <div class="col-lg-4">
+             <center>
+                 <i data-feather="code"></i>
+                 <h2>For developers</h2>
+                 <p>Our primary aim is to help developers find cheap and affordable domain names. We offer discountted prices.</p>
+                 <p><a class="btn btn-secondary" href="{% url 'about' %}" role="button">More »</a></p>
+             </center>
+         </div><!-- /.col-lg-4 -->
+     </div><!-- /.row -->
+
+     <hr class="featurette-divider">
+
+     <!-- /END THE FEATURETTES -->
+
+ </div>
+ <div style="padding-top: 60px" class="container">
+     <h2>Frequently Asked Questions:</h2>
+     {% include 'inc/faq.html' %}
+ </div>
+{% endblock content %}
