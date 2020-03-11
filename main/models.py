@@ -52,7 +52,7 @@ class Domain(models.Model):
         subject = "Domain Registration"
         full_message = "Nameserver: <br> Domain name: {}, <br> Nameserver 1: {}, <br> Nameserver 2: {}, <br> Nameserver 3: {}, <br> Nameserver 4: {}, <br> Nameserver 5: {}".format(self.name, self.nameserver1, self.nameserver2, self.nameserver3, self.nameserver4, self.nameserver5)
         try:
-            send_mail(subject, full_message, sender, ['clouditate@gmail.com'])
+            send_mail(subject, full_message, sender, ['brandonsimango2@gmail.com'])
         except BadHeaderError:
                 return HttpResponse('Email not valid')
         return redirect('dashboard')

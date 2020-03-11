@@ -1,10 +1,12 @@
 <!-- templates/about.html -->
 {% extends '_base.html' %}
+{% load static%}
 {% block title %}About{% endblock title %}
 {% block content %}
 <div style="margin-top:6%" class="container">
 <h1>About Page</h1><hr>
 <p>Zimbabwe domain name registry is a domain name registration company in Zimbabwe. We offer discounted/cheap domain names for developers and resellers.</p>
 <p>We're a part of <a target="_blank" href="https://zimhero.com">Zimhero web hosting</a>, which offers shared hosting, virtual private servers and business email hosting in Zimbabwe.</p>
+<img src="{% static 'images/company.jpg' %}" >
 </div>
 {% endblock content %}
