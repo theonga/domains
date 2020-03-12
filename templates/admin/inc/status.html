@@ -1,0 +1,11 @@
+{% if domain.status == 'active' %}
+    <span class="badge badge-success">Active</span>
+    {% elif domain.status == 'expired'  %}
+    <span class="badge badge-warning">Expired</span>
+    {% elif domain.status == 'terminated' %}
+    <span class="badge badge-danger">Terminated</span>
+    {% elif domain.status == 'transferred' %}
+    <span class="badge badge-danger">Transferred</span>
+    {% elif domain.status == 'pending' %}
+    <span class="badge badge-info">Pending</span>
+{% endif %}

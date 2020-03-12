@@ -1,0 +1,32 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Domain Pricing{% endblock title %}
+{% block content_header %}
+<!-- /.content-header -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Payment Details</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+{% endblock %}
+{% block content %}
+<div style="margin-top:21px" class="container">
+    <center>
+        <p style="color: green">Domain registered!. Thank for supporting our services.</p>
+        <img src="{% static 'images/ecocash-logo.png' %}" /> <br><br>
+        <p>Send your domain name and proof of payment to this number also</p>
+        <h1>+263 78 3778 360</h1>
+    </center>
+</div>
+{% endblock %}

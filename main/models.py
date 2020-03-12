@@ -6,10 +6,10 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect
 
 domain_status = (
-    ('pn', 'Pending'),
-    ('ac', 'Active'),
-    ('ex', 'Expired'),
-    ('tf', 'Transferred')
+    ('pending', 'Pending'),
+    ('active', 'Active'),
+    ('expired', 'Expired'),
+    ('transferred', 'Transferred')
 )
 
 payment_status = (
@@ -20,7 +20,7 @@ payment_status = (
 class Domain(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     name = models.CharField(help_text="Domain name", max_length=50)
-    status = models.CharField(help_text="Status", choices=domain_status, default='pn', max_length=50)
+    status = models.CharField(help_text="Status", choices=domain_status, default='pending', max_length=50)
     first_name = models.CharField(help_text="Owner first name", max_length=50)
     last_name = models.CharField(help_text="Owner last name", max_length=50)
     business = models.CharField(help_text="Domain business", max_length=100)
@@ -39,7 +39,7 @@ class Domain(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("dashboard")
+        return reverse("index")
 
     class Meta:
         db_table = "dm_domains"
@@ -55,8 +55,34 @@ class Domain(models.Model):
             send_mail(subject, full_message, sender, ['brandonsimango2@gmail.com'])
         except BadHeaderError:
                 return HttpResponse('Email not valid')
-        return redirect('dashboard')
+        return redirect('index')
         super(Domain, self).save(*args, **kwargs)
+
+
+class Transfer(models.Model):
+    user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
+    domain_name = models.CharField(help_text="Domain name", max_length=50)
+    note = models.TextField(help_text="Release note from your current registra")
+
+    class Meta:
+        db_table = "dm_transfer"
+
+    def get_absolute_url(self):
+        return reverse("index")
+
+
+    def save(self, *args, **kwargs):
+        sender = self.user.email
+        subject = "Domain Registration Transfer"
+        full_message = "Domain name: {}, <br> note: {}".format(self.domain_name, self.note)
+        try:
+            send_mail(subject, full_message, sender, ['brandonsimango2@gmail.com'])
+        except BadHeaderError:
+                return HttpResponse('Email not valid')
+        return redirect('index')
+        super(Transfer, self).save(*args, **kwargs)
+
+
 
 class Payment(models.Model):
     domain = models.ForeignKey(Domain, help_text="Domain name", on_delete=models.CASCADE)
@@ -69,6 +95,27 @@ class Payment(models.Model):
         return self.domain.name
 
     def get_absolute_url(self):
-        return reverse('dashboard')
+        return reverse('index')
+
     class Meta:
         db_table = "dm_payments"
+
+
+class Invoice(models.Model):
+    in_status = (
+        ('paid', 'Paid'),
+        ('unpaid', 'Not Paid')
+    )
+    user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
+    domain = models.ForeignKey(Domain, help_text="Domain", on_delete=models.CASCADE)
+    amount = models.FloatField(help_text="Amount Due")
+    status = models.CharField(help_text="Invoice Status", max_length=20, choices=in_status, default="unpaid")
+
+    def __str__(self):
+        return self.domain.name
+
+    def get_absolute_url(self):
+        return reverse('index')
+
+    class Meta:
+        db_table = "dm_invoices"

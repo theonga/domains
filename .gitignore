@@ -1,1 +1,42 @@
 staticfiles/*
+
+
+
+
+// System / Log files
+templates/admin/*.DS_Store
+templates/admin/*.log
+
+// Archives
+templates/admin/*.zip
+
+// Sass Cache
+templates/admin/.sass-cache
+
+// Project files
+templates/admin/.idea
+templates/admin/nbproject
+templates/admin/nbproject/private
+templates/admin/.vscode/
+templates/admin/.vs/
+
+// Node / Bower
+templates/admin/node_modules/
+templates/admin/bower_components/
+
+// Plugins
+templates/admin/plugins/*/*.md
+templates/admin//plugins/*/*.html
+templates/admin//plugins/*/package.json
+
+
+// Docs
+templates/admin/Gemfile.lock
+templates/admin/docs/_site
+templates/admin/docs_html/
+templates/admin/.jekyll-cache/
+templates/admin/.jekyll-metadata
+
+// ETC TODO
+templates/admin/test.html
+templates/admin/ad.js

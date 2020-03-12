@@ -1,0 +1,76 @@
+{% extends 'admin/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Domain name details{% endblock title %}
+{% block content_header %}
+<!-- /.content-header -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Domain name details</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<hr>
+{% endblock %}
+{% block content %}
+    <div style="margin-top: 40px" class="container">
+      <form method="post" autocomplete="off">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-6">
+          {{ form.first_name|as_crispy_field }}
+        </div>
+        <div class="col-6">
+          {{ form.last_name|as_crispy_field }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          {{ form.email|as_crispy_field }}
+        </div>
+        <div class="col-6">
+          {{ form.phone|as_crispy_field }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          {{ form.business|as_crispy_field }}
+        </div>
+        <div class="col-6">
+          {{ form.org_name|as_crispy_field }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          {{ form.nameserver1|as_crispy_field }}
+        </div>
+        <div class="col-6">
+          {{ form.nameserver2|as_crispy_field }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          {{ form.nameserver3|as_crispy_field }}
+        </div>
+        <div class="col-6">
+          {{ form.nameserver4|as_crispy_field }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          {{ form.nameserver5|as_crispy_field }}
+        </div>
+      </div>
+      {{ form.address|as_crispy_field }}
+      <button class="btn btn-success" type="submit">Paynow</button>
+      </form>
+    </div>
+{% endblock content %}

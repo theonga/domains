@@ -1,0 +1,41 @@
+{% extends 'admin/base.html' %}
+{% block content_header %}
+<!-- /.content-header -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Search Domain Name Availability</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<hr>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <form center method="POST" action="{% url 'new' %}" autocomplete="off">
+      {% csrf_token %}
+      <div class="card card-info">
+        <!-- /input-group -->
+        <div class="input-group input-group-lg">
+          <input type="text" id="domain" name="domain" class="form-control" placeholder="Search domain name" required>
+          <span class="input-group-append">
+            <button type="submit" class="btn btn-primary">Search Availability</button>
+          </span>
+        </div>
+        <!-- /input-group -->
+      </div>
+  </form>
+  {% if av %}
+       {% include 'inc/resp.html' %}
+  {% endif %}
+</div>
+<!-- /.card-body -->
+{% endblock %}

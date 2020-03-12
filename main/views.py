@@ -59,7 +59,7 @@ class AboutPageView(TemplateView): # new
 class Register(LoginRequiredMixin, CreateView):
     model = Domain
     fields = ['first_name', 'last_name', 'business', 'org_name', 'nameserver1', 'nameserver2', 'nameserver3', 'nameserver4', 'nameserver5', 'address', 'email', 'phone']
-    template_name = "pages/registerdom.html"
+    template_name = "admin/pages/registerdom.html"
 
     def get_success_url(self):
         return reverse('payments')
