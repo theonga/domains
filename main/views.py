@@ -5,7 +5,7 @@ from .forms import ContactForm
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import send_mail
+from django.core.mail import BadHeaderError, send_mail
 from django.shortcuts import redirect
 import whois
 import socket
@@ -50,7 +50,8 @@ def Contact(request):
             message = form.cleaned_data['message']
             content = "Phone: {} \n Message: {}".format(phone_number, message)
             try:
-                send_mail(subject, content, from_email, ['brandonsimango2@gmail.com'])
+                send_mail(subject, content, from_email, ['support@zimbabwedomainregistration.com'])
+                return redirect('home')
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('contact')

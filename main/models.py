@@ -2,7 +2,7 @@ from django.db import models
 from users.models import CustomUser
 from django.urls import reverse
 from django.utils.text import slugify
-from django.core.mail import send_mail
+from django.core.mail import BadHeaderError, send_mail
 from django.shortcuts import redirect
 
 domain_status = (
@@ -64,7 +64,7 @@ class Domain(models.Model):
         subject = "Domain Registration"
         full_message = "Nameserver: <br> Domain name: {}, <br> Nameserver 1: {}, <br> Nameserver 2: {}, <br> Nameserver 3: {}, <br> Nameserver 4: {}, <br> Nameserver 5: {}".format(self.name, self.nameserver1, self.nameserver2, self.nameserver3, self.nameserver4, self.nameserver5)
         try:
-            send_mail(subject, full_message, sender, ['brandonsimango2@gmail.com'])
+            send_mail(subject, full_message, sender, ['support@zimbabwedomainregistration.com'])
         except BadHeaderError:
                 return HttpResponse('Email not valid')
         super(Domain, self).save(*args, **kwargs)
@@ -87,7 +87,7 @@ class Transfer(models.Model):
         subject = "Domain Registration Transfer"
         full_message = "Domain name: {}, <br> note: {}".format(self.domain_name, self.note)
         try:
-            send_mail(subject, full_message, sender, ['brandonsimango2@gmail.com'])
+            send_mail(subject, full_message, sender, ['support@zimbabwedomainregistration.com'])
         except BadHeaderError:
                 return HttpResponse('Email not valid')
         super(Transfer, self).save(*args, **kwargs)
