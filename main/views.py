@@ -66,7 +66,7 @@ class Register(LoginRequiredMixin, CreateView):
     template_name = "siteadmin/pages/registerdom.html"
 
     def get_success_url(self):
-        return reverse('payments')
+        return reverse('pay', kwargs={'domain': self.object.name})
 
     def form_valid(self, form):
         user = self.request.user

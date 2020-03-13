@@ -4,10 +4,11 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from main.models import Domain, Invoice, Transfer, Price
+from main.models import Domain, Invoice, Transfer, Price, Payment
 from users.models import CustomUser
 import whois
 import socket
+from paynow import Paynow
 from django.urls import reverse
 from .forms import DeleteForm
 from django.contrib.auth.hashers import check_password
@@ -25,6 +26,20 @@ class AdminView(LoginRequiredMixin, TemplateView):
         context["expired"] = domains.filter(status='expired')
         context["transferred"] = domains.filter(status='transferred')
         return context
+
+class MakePayment(LoginRequiredMixin, CreateView):
+    model = Payment
+    fields = ['phone']
+    template_name = "siteadmin/pages/makepayment.html"
+
+    def form_valid(self, form):
+        domain = Domain.objects.get(name=self.kwargs['domain'])
+        form.instance.domain = domain
+        if domain.name.find(".zw"):
+            form.instance.amount = 55
+        else:
+            form.instance.amount = 600
+        return super(MakePayment, self).form_valid(form)
 
 class InvoiceView(LoginRequiredMixin, ListView):
     template_name = Invoice
@@ -123,8 +138,6 @@ def delete_user(request):
                 context['msg'] = 'Wrong Password, Account cannot be deleted'
                 return render(request, 'account/delete_account.html', context=context)
     return render(request, "account/delete_account.html", {'form': form})
-
-
 
 class PaymentView(LoginRequiredMixin, TemplateView):
     template_name = 'siteadmin/pages/payments.html'

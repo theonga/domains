@@ -4,6 +4,9 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.core.mail import BadHeaderError, send_mail
 from django.shortcuts import redirect
+from django.utils import timezone
+from paynow import Paynow
+from datetime import datetime, timedelta
 
 domain_status = (
     ('pending', 'Pending'),
@@ -31,7 +34,7 @@ class Price(models.Model):
 
 class Domain(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
-    name = models.CharField(help_text="Domain name", max_length=50)
+    name = models.CharField(help_text="Domain name", max_length=50, unique=True)
     status = models.CharField(help_text="Status", choices=domain_status, default='pending', max_length=50)
     first_name = models.CharField(help_text="Owner first name", max_length=50)
     last_name = models.CharField(help_text="Owner last name", max_length=50)
@@ -45,6 +48,8 @@ class Domain(models.Model):
     nameserver3 = models.CharField(help_text="Nameserver 3", blank=True, null=True, max_length=50)
     nameserver4 = models.CharField(help_text="Nameserver 4", blank=True, null=True, max_length=50)
     nameserver5 = models.CharField(help_text="Nameserver 5", blank=True, null=True, max_length=50)
+    registered_date = models.DateTimeField(default=timezone.now())
+    expiry_date = models.DateTimeField(default=timezone.now() + timedelta(days=365))
     slug = models.SlugField()
 
     def __str__(self):
@@ -98,7 +103,7 @@ class Payment(models.Model):
     domain = models.ForeignKey(Domain, help_text="Domain name", on_delete=models.CASCADE)
     amount = models.FloatField(help_text="Amount")
     phone = models.CharField(help_text="Ecocash phone", max_length=50)
-    status = models.CharField(help_text="Payment status", choices=payment_status, max_length=50)
+    status = models.CharField(help_text="Payment status", choices=payment_status, default='F', max_length=50)
     date = models.DateField(help_text="date", auto_now_add=True)
 
     def __str__(self):
@@ -109,6 +114,36 @@ class Payment(models.Model):
 
     class Meta:
         db_table = "dm_payments"
+
+    def save(self, *args, **kwargs):
+        paynow = Paynow(
+            '6668',
+            'b0b170e0-c950-4800-b56c-9ce4e4e02e14',
+            'https://zimbabwedomainregistry.co.zw',
+            'https://zimbabwedomainregistry.co.zw',
+        )
+        payment = paynow.create_payment(self.domain.name, self.domain.user.email)
+        if self.domain.name.find(".zw"):
+            payment.add(self.domain.name, 55)
+            self.amount = 55
+        else:
+            payment.add(self.domain.name, 600)
+            self.amount = 600
+        response = paynow.send_mobile(payment, self.phone, 'ecocash')
+        if response.success:
+            status = paynow.check_transaction_status('https://zimbabwedomainregistry.co.zw')
+            time.sleep(30)
+            if status.paid:
+                self.status = 'S'
+                self.domain.status = 'active'
+            else:
+                self.status = 'F'
+                self.domain.status = 'pending'
+        else:
+            self.status = 'F'
+            self.domain.status = 'pending'
+        super(Payment, self).save(*args, **kwargs)
+
 
 
 class Invoice(models.Model):

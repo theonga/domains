@@ -22,7 +22,7 @@
   {% if domains %}
     {% for domain in domains %}
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{domain.name}} {% include 'siteadmin/inc/status.html' %}
+        {{domain.name}} <span class="badge badge-danger">{{domain.expiry_date}}</span> {% include 'siteadmin/inc/status.html' %}
         <a name="" id="" class="btn btn-primary" href="{% url 'manage' domain.pk %}" role="button">Manage</a>
       </li>
     {% endfor %}
