@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '49kp_p6n#h*kfmnr)$d6y%=&a5ja-5ku7(n3%j^d^%h&-uh5e&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
   'zimbabwedomainregistration.com',
