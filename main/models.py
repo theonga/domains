@@ -17,6 +17,18 @@ payment_status = (
     ('F', 'Failed'),
 )
 
+class Price(models.Model):
+    tld = (
+        ('int',  'International Domain'),
+        ('loc', 'Local Domains')
+    )
+    domain_type = models.CharField(help_text="Domain type", choices=tld, max_length=30)
+    price = models.FloatField(help_text="Domain price")
+
+    def __str__(self):
+        return self.domain_type
+
+
 class Domain(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
     name = models.CharField(help_text="Domain name", max_length=50)
@@ -55,7 +67,6 @@ class Domain(models.Model):
             send_mail(subject, full_message, sender, ['brandonsimango2@gmail.com'])
         except BadHeaderError:
                 return HttpResponse('Email not valid')
-        return redirect('index')
         super(Domain, self).save(*args, **kwargs)
 
 
@@ -79,7 +90,6 @@ class Transfer(models.Model):
             send_mail(subject, full_message, sender, ['brandonsimango2@gmail.com'])
         except BadHeaderError:
                 return HttpResponse('Email not valid')
-        return redirect('index')
         super(Transfer, self).save(*args, **kwargs)
 
 
@@ -102,20 +112,19 @@ class Payment(models.Model):
 
 
 class Invoice(models.Model):
-    in_status = (
+     in_status = (
         ('paid', 'Paid'),
         ('unpaid', 'Not Paid')
-    )
-    user = models.ForeignKey(CustomUser, verbose_name=("user"), on_delete=models.CASCADE)
-    domain = models.ForeignKey(Domain, help_text="Domain", on_delete=models.CASCADE)
-    amount = models.FloatField(help_text="Amount Due")
-    status = models.CharField(help_text="Invoice Status", max_length=20, choices=in_status, default="unpaid")
+     )
+     domain = models.ForeignKey(Domain, on_delete=models.CASCADE, related_name="invoices")
+     amount = models.FloatField(help_text="Amount Due")
+     status = models.CharField(help_text="Invoice Status", max_length=20, choices=in_status, default="unpaid")
 
-    def __str__(self):
-        return self.domain.name
+     def __str__(self):
+         return self.domain.name
 
-    def get_absolute_url(self):
-        return reverse('index')
+     def get_absolute_url(self):
+         return reverse('index')
 
-    class Meta:
-        db_table = "dm_invoices"
+     class Meta:
+         db_table = "dm_invoices"

@@ -1,14 +1,14 @@
-<!-- templates/signup.html -->
-{% extends 'admin/base.html' %}
+{% extends 'siteadmin/base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
-{% block title %}Transfer domain to us{% endblock title %}
+{% block title %}Domain Pricing{% endblock title %}
 {% block content_header %}
 <!-- /.content-header -->
 <div class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Transfer Domain</h1>
+        <h1 class="m-0 text-dark">Payment Details</h1>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -19,14 +19,14 @@
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
 </div>
-<hr>
 {% endblock %}
 {% block content %}
-    <div style="margin-top:10px" class="container">
-        <form method="post" autocomplete="off">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button class="btn btn-success" type="submit">Transfer domain</button>
-        </form>
-    </div>
-{% endblock content %}
+<div style="margin-top:21px" class="container">
+    <center>
+        <p style="color: green">Domain registered!. Thank for supporting our services.</p>
+        <img src="{% static 'images/ecocash-logo.png' %}" /> <br><br>
+        <p>Send your domain name and proof of payment to this number also</p>
+        <h1>+263 78 3778 360</h1>
+    </center>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'admin/base.html' %}
+{% extends 'siteadmin/base.html' %}
 {% block content_header %}
 <!-- /.content-header -->
 <div class="content-header">
@@ -22,8 +22,8 @@
   {% if domains %}
     {% for domain in domains %}
       <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{domain.name}} {% include 'admin/inc/status.html' %}
-        <a name="" id="" class="btn btn-primary" href="" role="button">Manage</a>
+        {{domain.name}} {% include 'siteadmin/inc/status.html' %}
+        <a name="" id="" class="btn btn-primary" href="{% url 'manage' domain.pk %}" role="button">Manage</a>
       </li>
     {% endfor %}
   {% else %}

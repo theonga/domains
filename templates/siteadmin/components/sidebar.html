@@ -16,7 +16,7 @@
         <img src="{% static 'images/user.png' %}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{user.username}}</a>
+        <a href="{% url 'index' %}" class="d-block">{{user.username}}</a>
       </div>
     </div>
 
@@ -34,6 +34,12 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{% url 'index' %}" class="nav-link">
+                <i class="fas fa-list nav-icon"></i>
+                <p>Overview</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="{% url 'registered' %}" class="nav-link">
                 <i class="fas fa-globe-africa nav-icon"></i>
@@ -64,12 +70,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{% url 'update' user.pk %}" class="nav-link">
-                <i class="fas fa-user-edit nav-icon"></i>
-                <p>Edit Profile</p>
-              </a>
-            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a href="{% url 'update' user.pk %}" class="nav-link">
+                  <i class="fas fa-user-edit nav-icon"></i>
+                  <p>Edit Profile</p>
+                </a>
+              </li>
+            {% endif %}
             <li class="nav-item">
               <a href="{% url 'account_change_password' %}" class="nav-link">
               <i class="fas fa-key nav-icon"></i>
@@ -93,12 +101,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            {% if user.is_authenticated %}
             <li class="nav-item">
-              <a href="{% url 'invoices' user.pk %}" class="nav-link disabled">
+              <a href="#" class="nav-link disabled">
                 <i class="fas fa-file-invoice-dollar nav-icon"></i>
                 <p>Invoices</p>
               </a>
             </li>
+            {% endif %}
             <li class="nav-item">
               <a href="{% url 'payments' %}" class="nav-link">
                 <i class="fas fa-credit-card nav-icon"></i>

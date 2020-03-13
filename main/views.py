@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse
-from main.models import Domain
+from main.models import Domain, Price
 from .forms import ContactForm
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView, CreateView
@@ -18,17 +18,20 @@ def HomePageView(request):
             if domain.find(".zw"):
                 try:
                     if socket.gethostbyname(domain) == None:
-                        return render(request,'home.html', {'av': 'true', 'dom': domain})
+                        price = Price.objects.get(domain_type="loc")
+                        return render(request,'home.html', {'av': 'true', 'dom': domain, 'price': price.price})
                     else:
-                        return render(request, 'home.html', {'av': 'false', 'dom': domain})
+                        price = Price.objects.get(domain_type="loc")
+                        return render(request, 'home.html', {'av': 'false', 'dom': domain, 'price': price.price})
                 except:
-                    return render(request, 'home.html', {'av': 'true', 'dom': domain})
+                    price = Price.objects.get(domain_type="loc")
+                    return render(request, 'home.html', {'av': 'true', 'dom': domain, 'price': price.price})
             else:
                 w = whois.whois(domain)
                 if w['status'] == None:
-                    return render(request, 'home.html', {'av': 'true', 'dom': domain})
+                    return render(request, 'home.html', {'av': 'true', 'dom': domain, 'price': Price.objects.get(domain_type="int").price})
                 else:
-                    return render(request, 'home.html', {'av': 'false', 'dom': domain})
+                    return render(request, 'home.html', {'av': 'false', 'dom': domain, 'price': Price.objects.get(domain_type="int").price})
         else:
             return render(request, 'home.html')
     else:
@@ -59,7 +62,7 @@ class AboutPageView(TemplateView): # new
 class Register(LoginRequiredMixin, CreateView):
     model = Domain
     fields = ['first_name', 'last_name', 'business', 'org_name', 'nameserver1', 'nameserver2', 'nameserver3', 'nameserver4', 'nameserver5', 'address', 'email', 'phone']
-    template_name = "admin/pages/registerdom.html"
+    template_name = "siteadmin/pages/registerdom.html"
 
     def get_success_url(self):
         return reverse('payments')

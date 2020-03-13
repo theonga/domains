@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from main.models import Domain, Invoice, Transfer
+from main.models import Domain, Invoice, Transfer, Price
 from users.models import CustomUser
 import whois
 import socket
@@ -13,64 +14,62 @@ from django.contrib.auth.hashers import check_password
 # Create your views here.
 
 
-class AdminView(TemplateView, LoginRequiredMixin):
-    template_name = "admin/index.html"
+class AdminView(LoginRequiredMixin, TemplateView):
+    template_name = "siteadmin/index.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         domains = Domain.objects.filter(user=self.request.user)
-        invoices = Invoice.objects.filter(user=self.request.user)
-        context["invoices"] = invoices
         context["active"] = domains.filter(status='active')
         context["pending"] = domains.filter(status='pending')
         context["expired"] = domains.filter(status='expired')
         context["transferred"] = domains.filter(status='transferred')
+        return context
 
-class InvoiceView(ListView, LoginRequiredMixin):
+class InvoiceView(LoginRequiredMixin, ListView):
     template_name = Invoice
-    template = "admin/pages/invoices.html"
-    object_name = "invoices"
+    template = "siteadmin/pages/invoices.html"
+    context_object_name = "invoices"
 
     def get_queryset(self, **kwargs):
-        return Invoice.objects.filter(user=self.request.user)
+        return invoices
 
-class ListView(ListView, LoginRequiredMixin):
+class DomainListView(LoginRequiredMixin, ListView):
     model = Domain
-    template_name = "admin/pages/domainlist.html"
-    object_name = "domains"
+    template_name = "siteadmin/pages/domainlist.html"
+    context_object_name = "domains"
 
     def get_queryset(self, **kwargs):
         domains = Domain.objects.filter(user=self.request.user)
-        return domains.filter(status=self.kwargs['category'])
+        return domains.filter(status=self.kwargs['status'])
 
 class RegisteredDomainView(ListView, LoginRequiredMixin):
     model = Domain
-    template_name = "admin/pages/registered.html"
-    object_name = "domains"
+    template_name = "siteadmin/pages/registered.html"
+    context_object_name = "domains"
 
     def get_queryset(self, **kwargs):
         domains = Domain.objects.filter(user=self.request.user)
         return domains
 
-class TransferDomainView(CreateView, LoginRequiredMixin):
+class TransferDomainView(LoginRequiredMixin, CreateView):
     model = Transfer
     fields = ['domain_name', 'note']
-    template_name = "admin/pages/transfer.html"
+    template_name = "siteadmin/pages/transfer.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(TransferDomainView, self).form_valid(form)
 
 
-class UpdateAccountView(UpdateView, LoginRequiredMixin):
+class UpdateAccountView(LoginRequiredMixin, UpdateView):
     model = CustomUser
-    template_name = "admin/pages/account_edit.html"
+    template_name = "siteadmin/pages/account_edit.html"
     fields = ['first_name', 'last_name', 'email']
     redirect = "/account/"
 
     def get_success_url(self):
         return reverse('index')
-
 
 def SearchDomain(request):
     if request.method == 'POST':
@@ -79,21 +78,26 @@ def SearchDomain(request):
             if domain.find(".zw"):
                 try:
                     if socket.gethostbyname(domain) == None:
-                        return render(request,'admin/pages/search.html', {'av': 'true', 'dom': domain})
+                        price = Price.objects.get(domain_type="loc")
+                        return render(request,'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price.price})
                     else:
-                        return render(request, 'admin/pages/search.html', {'av': 'false', 'dom': domain})
+                        price = Price.objects.get(domain_type="loc")
+                        return render(request, 'siteadmin/pages/search.html', {'av': 'false', 'dom': domain, 'price': price.price})
                 except:
-                    return render(request, 'admin/pages/search.html', {'av': 'true', 'dom': domain})
+                    price = Price.objects.get(domain_type="loc")
+                    return render(request, 'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price.price})
             else:
                 w = whois.whois(domain)
                 if w['status'] == None:
-                    return render(request, 'admin/pages/search.html', {'av': 'true', 'dom': domain})
+                    price = Price.objects.get(domain_type="int")
+                    return render(request, 'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price.price})
                 else:
-                    return render(request, 'admin/pages/search.html', {'av': 'false', 'dom': domain})
+                    price = Price.objects.get(domain_type="int")
+                    return render(request, 'siteadmin/pages/search.html', {'av': 'false', 'dom': domain, 'price': price.price})
         else:
-            return render(request, 'admin/pages/search.html')
+            return render(request, 'siteadmin/pages/search.html')
     else:
-        return render(request, 'admin/pages/search.html')
+        return render(request, 'siteadmin/pages/search.html')
 
 def delete_user(request):
     if request.method == "POST":
@@ -122,5 +126,18 @@ def delete_user(request):
 
 
 
-class PaymentView(TemplateView):
-    template_name = 'admin/pages/payments.html'
+class PaymentView(LoginRequiredMixin, TemplateView):
+    template_name = 'siteadmin/pages/payments.html'
+
+
+class Manage(UpdateView, LoginRequiredMixin):
+    model = Domain
+    fields = ('nameserver1', 'nameserver2', 'nameserver3', 'nameserver4', 'nameserver5')
+    context_object_name = 'domain'
+    template_name = "siteadmin/pages/manage.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        domain = Domain.objects.get(pk=self.kwargs['pk'])
+        context["domain"] = domain
+        return context

@@ -4,7 +4,7 @@ html, body{
 .feather {
     width: 18px;
     height: 18px;
-    stroke: blue;
+    stroke: #043d5f;
     stroke-width: 1;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -14,6 +14,9 @@ html, body{
 .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
     padding-right: 0px;
     padding-left: 0px;
+}
+.hero {
+    background-color: #043d5f !important;
 }
 @media screen and (max-width: 500px) {
    .connected{
