@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
 
     #third-part
     'allauth',
@@ -74,8 +75,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "brandonsimango2@gmail.com"
-EMAIL_HOST_PASSWORD = "s56875H7_0%HB#25"
+EMAIL_HOST_USER = "clouditate@gmail.com"
+EMAIL_HOST_PASSWORD = "7A2345*k"
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'home'
@@ -135,7 +136,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 '''
 DATABASES = {
     'default': {
