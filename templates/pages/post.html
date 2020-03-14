@@ -1,7 +1,9 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
-{% block title %}Domain names Zimbabwe, Servers, Web design blog{% endblock title %}
+<meta name="description" content="{{post.excerpt|safe}}">
+<meta name="keywords" content="{{post.keywords}}">
+{% block title %}{{post.title{% endblock title %}
 {% block custom_css %}
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 {% endblock custom_css %}

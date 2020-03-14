@@ -1,6 +1,12 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
+{% block meta %}
+<meta name="description" content="Learn how to manage your website domain name in Zimbabwe. We publish blog posts that will help you learn server management for free.">
+<meta name="keywords" content="domain name management in Zimbabwe, website names, domain harare, .co.zw, zimhero, clouditate, web design, shared hosting">
+<meta name="twitter:description" content="Learn how to manage your website domain name in Zimbabwe. We publish blog posts that will help you learn server management for free.">
+<meta name="twitter:title" content="Tutorials on domain and server management">
+{% endblock meta %}
 {% block title %}Domain names Zimbabwe, Servers, Web design blog{% endblock title %}
 {% block custom_css %}
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">

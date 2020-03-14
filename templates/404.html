@@ -1,0 +1,65 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block meta %}
+<meta name="description" content="Zimbabwe web names registration. Search for the contact details of any domain name using our free lookup tool.">
+<meta name="keywords" content="Zimbabwe web names registration. domain names, .com, web, website names, domain harare, .co.zw, zimhero, clouditate, web design, shared hosting">
+{% endblock meta %}
+{% block title %}Web names in Zimbabwe - Register your domain with us{% endblock title %}
+{% block custom_css %}
+<style>
+h1, h2, h3, h4, h5, h6 {
+  color:#043d5f;
+}
+section {
+    padding: 60px;
+}
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    outline: none;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.error-page-area h1 {
+    font-size: 9vw;
+    font-weight: 900;
+    line-height: 120px;
+    margin-bottom: 30px;
+}
+.error-page-area h2 {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.error-page-area a {
+  margin: 15px 5px 0;
+}
+.btn-theme.btn-md {
+    background: #043d5f;
+    color: #fff;
+}
+
+.error-page-area a.btn {
+    padding: 10px 30px;
+}
+</style>
+{% endblock custom_css %}
+{% block content %}
+<section class="error-page-area text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h1>404</h1>
+                    <h2>Sorry Page Was Not Found!</h2>
+                    <p>
+                        Thank you for passing by. Zimbabwe domain registration helps you buy cheap and sometimes free website names. Contact our customer service team on support support@zimhero.net or call +263773057669. 
+                    </p>
+                    <a class="btn btn-theme effect btn-md" href="{% url 'home' %}">Back To Home</a>
+                    <a class="btn btn-dark border btn-md" href="{% url 'contact' %}">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

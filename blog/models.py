@@ -6,6 +6,7 @@ from django.utils.text import slugify
 class Article(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(help_text="Post title", blank=False, max_length=255)
+    keywords = models.CharField(help_text="SEO Keywords", max_length=255)
     excerpt = models.TextField(help_text="Post excerpt", default="None")
     featured_image = models.ImageField(upload_to='blog/')
     body = models.TextField(help_text="Post body", blank=False)
