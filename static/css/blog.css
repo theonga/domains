@@ -7,8 +7,15 @@ a:focus, a:hover, .portfolio-cat a:hover, .footer -menu li a:hover {
     text-decoration: none;
 }
 .__post-detail{
+  padding: 0 100px;
   margin-top: 40px;
   font-size: 16px;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .__post-detail {
+    padding: 0 1px;
+  }
 }
 .section-title h2 {
   position: relative;

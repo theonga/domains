@@ -33,6 +33,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('account/', include('admin.urls')),
     path('blog/', include('blog.urls')),
+    path('whois/', include('whoistool.urls')),
     path('', include('main.urls')),
     path('summernote/', include('django_summernote.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},

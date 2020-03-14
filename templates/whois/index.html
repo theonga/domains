@@ -1,0 +1,67 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Whois lookup - Search for your domain information{% endblock title %}
+{% block content %}
+<div class="hero jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <h1 class="display-5 text-white text-center">Domain Whois Lookup Tool.</h1>
+            <p style="" class="text-white text-center">Hello. Your IP Address is: {{ip}}. Search your domain info below.</p>
+            <form center class="whois-form" method="POST" action="{% url 'whois' %}" autocomplete="off">
+              {% csrf_token %}
+                  <div class="form-row">
+                      <div class="form-group col-md-8 d-flex justify-content-center">
+                          <input type="text" class="form-control" id="domain" name="domain" value="{{d_name}}" placeholder="Domain name input " required="true">
+                      </div>
+                      <div class="form-group col-md-4">
+                          <button type="submit" class="btn btn-primary">Retrieve whois Information</button>
+                      </div>
+                  </div>
+              </form>
+
+        </div>
+    </div>
+  </div>
+</div>
+{% if resp == 'ok' %}
+    <div class="container whois-res">
+      <h2 class="text-class">Whois Lookup Results</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Domain name: </strong>{{d_name}}</li>
+        <li class="list-group-item"><strong>Creation date: </strong>{{creation_date}}</li>
+        <li class="list-group-item"><strong>Domain registrar: </strong>{{registrar}}</li>
+        <li class="list-group-item"><strong>Nameservers: </strong>{{nameservers}}</li>
+        <li class="list-group-item"><strong>Dnssec: </strong>{{dnssec}}</li>
+        <li class="list-group-item"><strong>Emails: </strong>{{emails}}</li>
+        <li class="list-group-item"><strong>Status: </strong>{{status}}</li>
+        <li class="list-group-item"><strong>Expiration date: </strong>{{exp}}</li>
+        <li class="list-group-item"><strong>Updated date: </strong>{{updated}}</li>
+        <li class="list-group-item"><strong>Whois server: </strong>{{whois_server}}</li>
+        <li class="list-group-item"><strong>Organisation: </strong>{{org}}</li>
+        <li class="list-group-item"><strong>Name: </strong>{{name}}</li>
+        <li class="list-group-item"><strong>Address: </strong>{{address}}</li>
+        <li class="list-group-item"><strong>City: </strong>{{city}}</li>
+        <li class="list-group-item"><strong>State: </strong>{{state}}</li>
+        <li class="list-group-item"><strong>Zipcode: </strong>{{zipcode}}</li>
+        <li class="list-group-item"><strong>Country: </strong>{{country}}</li>
+      </ul>
+    </div>
+{% endif %}
+<div class="container">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <strong>Domain whois lookup</strong>
+        <p>Our whois tool will give you all the details about a certain domain name. It provides you with the domain owner, when was it registered, when it expires, last updated date, who registered it, nameserver and many more information about the domain registrar.</p>
+    </li>
+    <li class="list-group-item">
+        <strong>Domain names for sale</strong>
+        <p>If you want a domain name that is already registered with us, send us an email <a href="{% url 'contact' %}">Here</a> and we'll see if the domain owner is willing to sell the domain to you.</p>
+    </li>
+    <li class="list-group-item">
+        <strong>Domain name prices in Zimbabwe</strong>
+        <p>Buy a local .co.zw domain name for ZWL50 per year with Zimbabwe domain registration. For international domain name we charge ZWL$650 only. Search your domain <a href="{% url 'home' %}">here</a> and register it if it's available.</p>
+    </li>
+  </ul>
+</div>
+{% endblock %}

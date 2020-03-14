@@ -1,8 +1,13 @@
 staticfiles/*
-
-
-
-
+blog/__pycache__/*
+blog/migrations/__pycache__/*
+main/__pycache__/*
+main/migrations/__pycache__/*
+admin/__pycache__/*
+admin/migrations/__pycache__/*
+static_media/*
+whoistool/__pycache__/*
+whoistool/migrations/__pycache__/*
 // System / Log files
 templates/admin/*.DS_Store
 templates/admin/*.log

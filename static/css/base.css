@@ -18,7 +18,26 @@ html, body{
 .hero {
     background-color: #043d5f !important;
 }
-@media screen and (max-width: 500px) {
+
+.whois-form{
+  padding: 0 170px;
+}
+.whois-res{
+    padding: 0 170px;
+}
+.whois-res .list-group-item{
+  font-size: 14px !important;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .whois-form {
+    padding: 0 1px;
+  }
+  .whois-res{
+      padding: 0 1px;
+  }
+}
+@media screen and (max-width: 768px) {
    .connected{
      display: none;
    }
