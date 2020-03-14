@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '49kp_p6n#h*kfmnr)$d6y%=&a5ja-5ku7(n3%j^d^%h&-uh5e&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG==False:
     SECURE_BROWSER_XSS_FILTER = True # new
@@ -63,12 +63,14 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
+    'django_summernote',
 
     #local
     'users.apps.UsersConfig',
     'main.apps.MainConfig',
+    'blog.apps.BlogConfig',
 ]
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 #email
@@ -130,7 +132,7 @@ WSGI_APPLICATION = 'domains.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -149,7 +151,7 @@ DATABASES = {
         'PORT': 5432
     }
 }
-
+'''
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 

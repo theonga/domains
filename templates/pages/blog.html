@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Domain names Zimbabwe, Servers, Web design blog{% endblock title %}
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock custom_css %}
+{% block content %}
+<section class="blog-area pt-5 pb-5">
+           <div class="container">
+               <div class="row">
+                   <div class="col-xl-12 text-center pb-3">
+                       <div class="section-title service-title">
+                           <h2>Zimbabwe domain registration blog</h2>
+                           <p>Let's discuss domain registration, web design, servers and technology in general. Domain registration in Zimbabwe is a place where you can buy a domain name at very cheap prices.</p>
+                       </div>
+                   </div>
+               </div>
+               <div class="row">
+                   {% for article in articles %}
+                   <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                       <div class="blog-wrapper home-blog-wrapper white-bg">
+                           <div class="blog-thumb">
+                               <a href="{% url 'article-detail' article.slug %}">
+                                   <img src="{{article.featured_image.url}}" alt="{{article.title}}" />
+                               </a>
+                           </div>
+                           <div class="meta-info">
+                               <ul>
+                                   <li class="posts-time">{{article.published}}</li>
+                               </ul>
+                           </div>
+                           <div class="blog-content home-blog">
+                               <h2 class="blog-title">
+                                   <a href="{% url 'article-detail' article.slug %}">{{article.title}}</a>
+                               </h2>
+                               <p>{{article.excerpt|safe }}</p>
+                           </div>
+                           <div class="link-box home-blog-link">
+                               <a href="{% url 'article-detail' article.slug %}">Read More</a>
+                           </div>
+                       </div>
+                   </div>
+                   {% endfor %}
+               </div>
+           </div>
+       </section>
+
+
+{% endblock content %}

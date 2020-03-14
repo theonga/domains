@@ -48,7 +48,7 @@ class Domain(models.Model):
     nameserver3 = models.CharField(help_text="Nameserver 3", blank=True, null=True, max_length=50)
     nameserver4 = models.CharField(help_text="Nameserver 4", blank=True, null=True, max_length=50)
     nameserver5 = models.CharField(help_text="Nameserver 5", blank=True, null=True, max_length=50)
-    registered_date = models.DateTimeField(default=timezone.now())
+    registered_date = models.DateTimeField(auto_now_add=True)
     expiry_date = models.DateTimeField(default=timezone.now() + timedelta(days=365))
     slug = models.SlugField()
 

@@ -1,6 +1,5 @@
 {% extends '_base.html' %}
 {% load static %}
-{% block title %}clouditate{% endblock title %}
 {% block content %}
 {% include 'components/searchbanner.html' %}
 <div class="container marketing">
@@ -37,6 +36,7 @@
      <!-- /END THE FEATURETTES -->
 
  </div>
+ {% include 'components/values.html' %}
  <div style="padding-top: 60px" class="container">
      <h2>Frequently Asked Questions:</h2>
      {% include 'inc/faq.html' %}

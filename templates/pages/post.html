@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Domain names Zimbabwe, Servers, Web design blog{% endblock title %}
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock custom_css %}
+{% block content %}
+<section class="blog-area pt-5 pb-5">
+       <div class="container">
+           <div class="row">
+               <div class="col-xl-12 text-center pb-3">
+                   <div class="section-title service-title">
+                       <h2>{{post.title}}</h2>
+                   </div>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xl-12  pb-3">
+                   <div class="__post-detail">
+                      {{post.body|safe}}
+                   </div>
+               </div>
+           </div>
+       </div>
+</section>
+{% endblock content %}
