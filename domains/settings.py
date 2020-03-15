@@ -21,9 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '49kp_p6n#h*kfmnr)$d6y%=&a5ja-5ku7(n3%j^d^%h&-uh5e&'
+GOOGLE_API_KEY = "AIzaSyA0pHg_FDkbC3RE2Vfm2dmVoL3eUUrx0MQ"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG==False:
     SECURE_BROWSER_XSS_FILTER = True # new
@@ -58,18 +59,17 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'whitenoise.runserver_nostatic',
-
     #third-part
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
     'django_summernote',
-
     #local
     'users.apps.UsersConfig',
     'main.apps.MainConfig',
     'blog.apps.BlogConfig',
+    'sitespeed.apps.SitespeedConfig',
     'whoistool.apps.WhoistoolConfig',
 ]
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -203,4 +203,4 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
-TATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

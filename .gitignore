@@ -1,4 +1,5 @@
 staticfiles/*
+static_media/*
 blog/__pycache__/*
 blog/migrations/__pycache__/*
 main/__pycache__/*

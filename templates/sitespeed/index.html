@@ -12,16 +12,16 @@
   <div class="container">
     <div class="row">
         <div class="col-lg-12 col-sm-12 col-md-12">
-            <h1 class="display-5 text-white text-center">Domain Whois Lookup Tool.</h1>
-            <p style="" class="text-white text-center">Hello. Your IP Address is: {{ip}}. Search your domain info below.</p>
-            <form center class="whois-form" method="POST" action="{% url 'whois' %}" autocomplete="off">
+            <h1 class="display-5 text-white text-center">Free SiteSpeed Insights</h1>
+            <p style="" class="text-white text-center">Strive to make your website fast as possible. Speed matters.</p>
+            <form center class="whois-form" method="POST" action="{% url 'sitespeed' %}" autocomplete="off">
               {% csrf_token %}
                   <div class="form-row">
                       <div class="form-group col-md-8 d-flex justify-content-center">
-                          <input type="text" class="form-control" id="domain" name="domain" value="{{d_name}}" placeholder="example.com " required="true">
+                          <input type="url" class="form-control" id="domain" name="domain" value="{{d_name}}" placeholder="https://example.com " required="true">
                       </div>
                       <div class="form-group col-md-4">
-                          <button type="submit" class="btn btn-primary">Retrieve whois Information</button>
+                          <button type="submit" class="btn btn-primary">Analyse website Speed</button>
                       </div>
                   </div>
               </form>
@@ -30,28 +30,10 @@
     </div>
   </div>
 </div>
-{% if resp == 'ok' %}
+{% if response  %}
     <div class="container whois-res">
-      <h2 class="text-class">Whois Lookup Results</h2>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><strong>Domain name: </strong>{{d_name}}</li>
-        <li class="list-group-item"><strong>Creation date: </strong>{{creation_date}}</li>
-        <li class="list-group-item"><strong>Domain registrar: </strong>{{registrar}}</li>
-        <li class="list-group-item"><strong>Nameservers: </strong>{{nameservers}}</li>
-        <li class="list-group-item"><strong>Dnssec: </strong>{{dnssec}}</li>
-        <li class="list-group-item"><strong>Emails: </strong>{{emails}}</li>
-        <li class="list-group-item"><strong>Status: </strong>{{status}}</li>
-        <li class="list-group-item"><strong>Expiration date: </strong>{{exp}}</li>
-        <li class="list-group-item"><strong>Updated date: </strong>{{updated}}</li>
-        <li class="list-group-item"><strong>Whois server: </strong>{{whois_server}}</li>
-        <li class="list-group-item"><strong>Organisation: </strong>{{org}}</li>
-        <li class="list-group-item"><strong>Name: </strong>{{name}}</li>
-        <li class="list-group-item"><strong>Address: </strong>{{address}}</li>
-        <li class="list-group-item"><strong>City: </strong>{{city}}</li>
-        <li class="list-group-item"><strong>State: </strong>{{state}}</li>
-        <li class="list-group-item"><strong>Zipcode: </strong>{{zipcode}}</li>
-        <li class="list-group-item"><strong>Country: </strong>{{country}}</li>
-      </ul>
+      <h2 class="text-class">Site Speed Analysis</h2>
+      {{response}}
     </div>
 {% endif %}
 <div class="container">
