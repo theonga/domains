@@ -93,22 +93,20 @@ def SearchDomain(request):
             if domain.find(".zw"):
                 try:
                     if socket.gethostbyname(domain) == None:
-                        price = Price.objects.get(domain_type="loc")
-                        return render(request,'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price.price})
+                        price = "50"
+                        return render(request,'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price})
                     else:
-                        price = Price.objects.get(domain_type="loc")
-                        return render(request, 'siteadmin/pages/search.html', {'av': 'false', 'dom': domain, 'price': price.price})
+                        price = "50"
+                        return render(request, 'siteadmin/pages/search.html', {'av': 'false', 'dom': domain, 'price': price})
                 except:
-                    price = Price.objects.get(domain_type="loc")
-                    return render(request, 'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price.price})
+                    price = "50"
+                    return render(request, 'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price})
             else:
                 w = whois.whois(domain)
                 if w['status'] == None:
-                    price = Price.objects.get(domain_type="int")
-                    return render(request, 'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': price.price})
+                    return render(request, 'siteadmin/pages/search.html', {'av': 'true', 'dom': domain, 'price': "600"})
                 else:
-                    price = Price.objects.get(domain_type="int")
-                    return render(request, 'siteadmin/pages/search.html', {'av': 'false', 'dom': domain, 'price': price.price})
+                    return render(request, 'siteadmin/pages/search.html', {'av': 'false', 'dom': domain, 'price': "600"})
         else:
             return render(request, 'siteadmin/pages/search.html')
     else:

@@ -1,10 +1,15 @@
 <!-- templates/signup.html -->
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
-{% block title %}Sign Up{% endblock title %}
+{% block title %}Sign Up - Zimbabwe domain registration{% endblock title %}
+{% block meta %}
+      <meta name="description" content="Create you .co.zw reseller account. Buy cheap domain name on bulk. Zimbabwe domain registration gives you easy to manage .co.zw domain management">
+      <meta name="keywords" content=".co.zw domain resellers, domain names, .com, website names, domain harare, .co.zw, zimhero, clouditate, web design, shared hosting, web names, websites, domain name seller Zimbabawe">
+      <link rel="shortlink" href="zimbabwedomainregistration.com/accounts/signup/">
+{% endblock meta %}
 {% block content %}
     <div style="margin-top:60px" class="container">
-        <h2>Sign Up</h2>
+        <h1>Sign Up</h1>
         <form method="post" autocomplete="off">
             {% csrf_token %}
             {{ form|crispy }}

@@ -1,9 +1,14 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
-{% block title %}Log In{% endblock title %}
+{% block title %}Log In - Domain name resellers in Zimbabawe{% endblock title %}
+{% block meta %}
+      <meta name="description" content="Domain name reseller in Zimbabwe. Buy cheap domain name on bulk. Zimbabwe domain registration gives you easy to manage .co.zw domain management">
+      <meta name="keywords" content="domain registration dashboard login, domain names, .com, website names, domain harare, .co.zw, zimhero, clouditate, web design, shared hosting, web names, websites, domain name seller Zimbabawe">
+      <link rel="shortlink" href="zimbabwedomainregistration.com/accounts/login/">
+{% endblock meta %}
 {% block content %}
 <div style="margin-top:6%" class="container">
-    <h2>Log In</h2>
+    <h1>Log In</h1>
     <form method="post" autocomplete="off">
     {% csrf_token %}
     {{ form|crispy }}

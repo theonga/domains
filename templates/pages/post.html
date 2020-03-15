@@ -1,12 +1,14 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
-<meta name="description" content="{{post.excerpt|safe}}">
-<meta name="keywords" content="{{post.keywords}}">
-{% block title %}{{post.title{% endblock title %}
+{% block title %}{{post.title}}{% endblock title %}
 {% block custom_css %}
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 {% endblock custom_css %}
+{% block meta %}
+<meta name="description" content="{{post.excerpt}}"/>
+<meta name="keywords" content="{{post.keywords}}"/>
+{% endblock meta %}
 {% block content %}
 <section class="blog-area pt-5 pb-5">
        <div class="container">
